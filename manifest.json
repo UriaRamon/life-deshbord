@@ -1,0 +1,17 @@
+{
+  "name": "Life Dashboard",
+  "short_name": "Life",
+  "description": "Personal dashboard for tasks, shopping, training, and Spanish progress.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f6f7f9",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

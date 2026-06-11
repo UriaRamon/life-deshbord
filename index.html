@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="apple-mobile-web-app-title" content="Life Dashboard" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Life Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">LD</div>
+          <div>
+            <h1>Life Dashboard</h1>
+            <p>Version 1</p>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+          <button class="nav-link active" data-page="dashboard">Dashboard</button>
+          <button class="nav-link" data-page="tasks">Tasks</button>
+          <button class="nav-link" data-page="shopping">Shopping</button>
+          <button class="nav-link" data-page="fitness">Fitness</button>
+          <button class="nav-link" data-page="spanish">Spanish</button>
+          <button class="nav-link" data-page="training">Training Plan</button>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow" id="todayLabel"></p>
+            <h2 id="pageTitle">What should I do today?</h2>
+          </div>
+        </header>
+
+        <section class="page active" id="dashboard">
+          <section class="panel today-panel">
+            <div class="panel-heading">
+              <h3>Today</h3>
+            </div>
+            <div class="today-plan" id="todayPlan"></div>
+          </section>
+
+          <div class="metric-grid">
+            <article class="metric">
+              <span>Run sessions</span>
+              <strong id="runSessionCount">0/2</strong>
+            </article>
+            <article class="metric">
+              <span>Strength sessions</span>
+              <strong id="strengthSessionCount">0/2</strong>
+            </article>
+            <article class="metric">
+              <span>Spanish this week</span>
+              <strong id="spanishWeekMinutes">0 min</strong>
+            </article>
+            <article class="metric">
+              <span>Spanish this month</span>
+              <strong id="spanishMonthMinutes">0 min</strong>
+            </article>
+            <article class="metric">
+              <span>Spanish streak</span>
+              <strong id="spanishStreak">0 days</strong>
+            </article>
+          </div>
+
+          <div class="content-grid">
+            <section class="panel">
+              <div class="panel-heading">
+                <h3>Today's tasks</h3>
+                <button class="text-button" data-jump="tasks">Manage</button>
+              </div>
+              <div class="item-list" id="todayTasks"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <h3>Open tasks</h3>
+                <button class="text-button" data-jump="tasks">View all</button>
+              </div>
+              <div class="item-list" id="openTasks"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <h3>Training this week</h3>
+                <button class="text-button" data-jump="training">Calendar</button>
+              </div>
+              <div class="progress-row">
+                <span>Running</span>
+                <strong id="runningProgressLabel">0 / 2 sessions</strong>
+              </div>
+              <div class="progress-track"><div id="runningProgressBar"></div></div>
+              <div class="summary-line" id="strengthWeekSummary">0 / 2 strength sessions completed</div>
+              <div class="summary-line" id="spanishWeekSummary">0 Spanish minutes this week</div>
+              <div class="summary-line" id="spanishMonthSummary">0 Spanish minutes this month</div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <h3>Shopping remaining</h3>
+                <button class="text-button" data-jump="shopping">Manage</button>
+              </div>
+              <div class="item-list" id="shoppingPreview"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="page" id="tasks">
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Add task</h3>
+            </div>
+            <form class="form-grid" id="taskForm">
+              <input id="taskTitle" type="text" placeholder="Task name" required />
+              <input id="taskDue" type="date" />
+              <select id="taskPriority">
+                <option value="Normal">Normal</option>
+                <option value="High">High</option>
+                <option value="Low">Low</option>
+              </select>
+              <button type="submit">Add</button>
+            </form>
+          </section>
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Tasks</h3>
+              <span class="pill" id="taskSummary">0 open</span>
+            </div>
+            <div class="item-list" id="taskList"></div>
+          </section>
+        </section>
+
+        <section class="page" id="training">
+          <div class="goals">
+            <section class="panel">
+              <h3>Plan focus</h3>
+              <p><strong>Start:</strong> Sunday, 14 June 2026</p>
+              <p><strong>First priority:</strong> rebuild consistency and safely return to 20-25 km per week.</p>
+              <p><strong>Running:</strong> 10K at 4:45/km, then Tel Aviv Half Marathon at 4:45/km.</p>
+            </section>
+            <section class="panel">
+              <h3>Weekly rhythm</h3>
+              <p>Sunday: Strength Workout A</p>
+              <p>Tuesday: Running quality workout</p>
+              <p>Thursday: Strength Workout B</p>
+              <p>Saturday: Easy run / long run</p>
+              <p>Spanish: every day, 10 minutes</p>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>This week</h3>
+              <span class="pill" id="trainingWeekLabel">Week 1</span>
+            </div>
+            <div class="calendar-grid" id="weeklyCalendar"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Upcoming and overdue</h3>
+              <span class="pill" id="planProgressSummary">0 complete</span>
+            </div>
+            <div class="plan-list" id="trainingPlanList"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Adaptive review</h3>
+              <span class="pill" id="adaptiveDueLabel">Every 2 weeks</span>
+            </div>
+            <p class="helper-text">Answer these every two weeks. The app will prepare recommendations for the next block, but it will not change the plan without confirmation.</p>
+            <form class="adaptive-form" id="adaptiveForm">
+              <label>
+                Difficulty
+                <select id="reviewDifficulty" required>
+                  <option value="Too easy">Too easy</option>
+                  <option value="About right" selected>About right</option>
+                  <option value="Too hard">Too hard</option>
+                </select>
+              </label>
+              <label>
+                Completed all workouts?
+                <select id="reviewCompleted" required>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="Mostly">Mostly</option>
+                </select>
+              </label>
+              <label>
+                Current pull-up max
+                <input id="reviewPullups" type="number" min="0" step="1" placeholder="e.g. 6" required />
+              </label>
+              <label>
+                Current dip max
+                <input id="reviewDips" type="number" min="0" step="1" placeholder="e.g. 8" required />
+              </label>
+              <label>
+                Recent 5 km result
+                <input id="review5k" type="text" placeholder="e.g. 25:55 or 5:11/km" required />
+              </label>
+              <label class="full-field">
+                Any pain or injury?
+                <input id="reviewPain" type="text" placeholder="No, or describe what hurts" required />
+              </label>
+              <button type="submit">Prepare recommendations</button>
+            </form>
+            <div class="recommendation-box" id="recommendationBox"></div>
+          </section>
+        </section>
+
+        <section class="page" id="shopping">
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Add shopping item</h3>
+            </div>
+            <form class="form-grid" id="shoppingForm">
+              <input id="shoppingName" type="text" placeholder="Item" required />
+              <input id="shoppingQty" type="text" placeholder="Quantity" />
+              <select id="shoppingCategory">
+                <option>Groceries</option>
+                <option>Home</option>
+                <option>Health</option>
+                <option>Other</option>
+              </select>
+              <button type="submit">Add</button>
+            </form>
+          </section>
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Shopping list</h3>
+              <span class="pill" id="shoppingSummary">0 remaining</span>
+            </div>
+            <div class="item-list" id="shoppingList"></div>
+          </section>
+        </section>
+
+        <section class="page" id="fitness">
+          <div class="goals">
+            <section class="panel">
+              <h3>Running goals</h3>
+              <p><strong>Long-term:</strong> Half Marathon at 4:45/km</p>
+              <p><strong>Short-term:</strong> 10K at 4:45/km</p>
+            </section>
+            <section class="panel">
+              <h3>Strength equipment</h3>
+              <div class="chip-row">
+                <span>Pull-up bar</span>
+                <span>Dip bars</span>
+                <span>TRX</span>
+              </div>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Log workout</h3>
+            </div>
+            <form class="form-grid workout-form" id="workoutForm">
+              <select id="workoutType">
+                <option value="Running">Running</option>
+                <option value="Strength">Strength</option>
+              </select>
+              <input id="workoutDate" type="date" required />
+              <input id="workoutDistance" type="number" min="0" step="0.1" placeholder="Km" />
+              <input id="workoutPace" type="text" placeholder="Pace or notes" />
+              <button type="submit">Log</button>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Workout history</h3>
+              <span class="pill" id="fitnessSummary">This week: 0 km</span>
+            </div>
+            <div class="item-list" id="workoutList"></div>
+          </section>
+        </section>
+
+        <section class="page" id="spanish">
+          <section class="panel spanish-goal">
+            <h3>Spanish tracking</h3>
+            <p>Track consistency only: date, minutes practiced, topic, and notes.</p>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Log practice</h3>
+            </div>
+            <form class="form-grid" id="spanishForm">
+              <input id="spanishDate" type="date" required />
+              <input id="spanishMinutes" type="number" min="1" step="1" placeholder="Minutes" required />
+              <input id="spanishTopic" type="text" placeholder="Topic" required />
+              <input id="spanishNotes" type="text" placeholder="Notes" />
+              <button type="submit">Log</button>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Practice history</h3>
+              <span class="pill" id="spanishSummary">0 day streak · 0 min this week</span>
+            </div>
+            <div class="item-list" id="spanishList"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
